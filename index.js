@@ -28,9 +28,8 @@ class Block {
             this.hash = this.calculateHash();
         }
         console.log(
-            "[+] BlockId:",
-            this.blockId,
-            "Mined having nonce:",
+            "[+] Block Mined -> BlockId:",
+            this.blockId + "\tNonce:",
             this.nonce
         );
         return {
@@ -40,6 +39,13 @@ class Block {
             data: JSON.parse(this.data),
             hash: this.hash,
         };
+    }
+    verifyBlock(key = 2) {
+        while (this.hash.substring(0, key) !== Array(key + 1).join("0")) {
+            this.nonce++;
+            this.hash = this.calculateHash();
+        }
+        return this.hash;
     }
 }
 
@@ -81,12 +87,42 @@ class BlockChain {
         this.chain.push(block.mineBlock(this.difficulty));
         return this.chain[this.blockId];
     }
-    viewChain() {
-        console.log(this.chain);
+    /** Additional Function */
+    importBlocks(fileName) {}
+    exportBlocks(fileName) {}
+    /** Verification Function */
+    verifyChain() {
+        let blockId = 1;
+        while (blockId < this.blockId) {
+            if (this.chain[blockId].prevHash !== this.chain[blockId].hash) {
+                return false;
+            }
+            blockId++;
+        }
+        return true;
+    }
+    verifyBlock(blockId) {
+        if (blockId < this.blockId) {
+            let block = new Block(
+                blockId,
+                this.chain[blockId].timestamp,
+                this.chain[blockId].data,
+                this.chain[blockId].prevHash
+            );
+            if (
+                block.verifyBlock(this.difficulty) ===
+                this.chain[blockId + 1].prevHash
+            )
+                return true;
+            else return false;
+        } else {
+            console.log("[-] Unable to verify latest block");
+            return false;
+        }
     }
 }
 
 const bc = new BlockChain(4);
-console.log(bc.addBlock({ name: "Malay", age: 21 }));
-console.log(bc.addBlock({ name: "Sally", age: 20 }));
-console.log(bc.addBlock({ name: "John", age: 23 }));
+bc.addBlock({ name: "Malay", age: 21 });
+bc.addBlock({ name: "Sally", age: 20 });
+bc.addBlock({ name: "John", age: 23 });
