@@ -1,21 +1,27 @@
 {
-  "name": "leo-blockchain",
-  "version": "1.0.0",
-  "description": "Blockchain Implementation",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "blockchain",
-    "secure",
-    "block",
-    "leo",
-    "leo-blockchain"
-  ],
-  "author": "Malay Bhavsar <malaybhavsar.290@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "crypto-js": "^4.1.1"
-  }
+    "name": "leo-blockchain",
+    "version": "1.0.0",
+    "description": "Blockchain Implementation",
+    "main": "index.js",
+    "scripts": {},
+    "keywords": [
+        "blockchain",
+        "secure",
+        "block",
+        "leo",
+        "leo-blockchain"
+    ],
+    "author": "Malay Bhavsar <malaybhavsar.290@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "crypto-js": "^4.1.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Leo-Malay/leo-blockchain.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Leo-Malay/leo-blockchain/issues"
+    },
+    "homepage": "https://github.com/Leo-Malay/leo-blockchain#readme"
 }
