@@ -1,3 +1,6 @@
+/**
+ * Developed with love by Malay Bhavsar <malaybhavsar.290@gmail.com>
+ */
 const { SHA256 } = require("crypto-js");
 const { writeFileSync, readFileSync } = require("fs");
 class Block {
@@ -48,9 +51,8 @@ class Block {
         return this.hash;
     }
 }
-
 class BlockChain {
-    constructor(difficulty = 1) {
+    constructor(difficulty = 2) {
         this.difficulty = difficulty;
         this.chain = [this.genesisBlock()];
         this.blockId = 0;
@@ -89,6 +91,7 @@ class BlockChain {
         return this.chain[this.blockId];
     }
     setDifficulty(difficulty) {
+        console.log("[+] Difficulty set to", this.difficulty);
         this.difficulty = difficulty;
         this.chain = [this.genesisBlock()];
         this.blockId = 0;
@@ -115,7 +118,7 @@ class BlockChain {
     verifyChain() {
         let blockId = 1;
         while (blockId < this.blockId) {
-            if (this.chain[blockId].prevHash !== this.chain[blockId].hash) {
+            if (this.chain[blockId].prevHash !== this.chain[blockId - 1].hash) {
                 return false;
             }
             blockId++;
@@ -142,13 +145,4 @@ class BlockChain {
         }
     }
 }
-
 module.exports = new BlockChain();
-
-// const bc = new BlockChain(4);
-// bc.importBlocks("data");
-// bc.addBlock({ name: "Malay", age: 21 });
-// bc.addBlock({ name: "Sally", age: 20 });
-// bc.addBlock({ name: "John", age: 23 });
-// bc.exportBlocks("data");
-// console.log(bc.chain);
