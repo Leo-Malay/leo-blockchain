@@ -1,5 +1,5 @@
 const { SHA256 } = require("crypto-js");
-
+const { writeFileSync, readFileSync } = require("fs");
 class Block {
     constructor(blockId, timestamp, data, prevHash) {
         this.blockId = blockId;
@@ -50,7 +50,7 @@ class Block {
 }
 
 class BlockChain {
-    constructor(difficulty = 2) {
+    constructor(difficulty = 1) {
         this.difficulty = difficulty;
         this.chain = [this.genesisBlock()];
         this.blockId = 0;
@@ -60,6 +60,7 @@ class BlockChain {
         return block.mineBlock(this.difficulty);
     }
     getLatestBlockHash() {
+        if (this.blockId === 0) return "0";
         return this.chain[this.blockId - 1].hash;
     }
     genTimeStamp() {
@@ -87,9 +88,29 @@ class BlockChain {
         this.chain.push(block.mineBlock(this.difficulty));
         return this.chain[this.blockId];
     }
+    setDifficulty(difficulty) {
+        this.difficulty = difficulty;
+        this.chain = [this.genesisBlock()];
+        this.blockId = 0;
+    }
     /** Additional Function */
-    importBlocks(fileName) {}
-    exportBlocks(fileName) {}
+    importBlocks(fileName) {
+        this.chain = this.chain.concat(
+            JSON.parse(readFileSync(fileName + ".txt", "utf-8"))
+        );
+        if (this.verifyChain()) {
+            console.log(
+                "[+] Data Imported. Total Number of Blocks:",
+                this.chain.length
+            );
+        } else {
+            this.chain = [this.genesisBlock()];
+            console.log("[-] Chain is compromised");
+        }
+    }
+    exportBlocks(fileName) {
+        writeFileSync(fileName + ".txt", JSON.stringify(this.chain.slice(1)));
+    }
     /** Verification Function */
     verifyChain() {
         let blockId = 1;
@@ -122,7 +143,12 @@ class BlockChain {
     }
 }
 
-const bc = new BlockChain(4);
-bc.addBlock({ name: "Malay", age: 21 });
-bc.addBlock({ name: "Sally", age: 20 });
-bc.addBlock({ name: "John", age: 23 });
+module.exports = new BlockChain();
+
+// const bc = new BlockChain(4);
+// bc.importBlocks("data");
+// bc.addBlock({ name: "Malay", age: 21 });
+// bc.addBlock({ name: "Sally", age: 20 });
+// bc.addBlock({ name: "John", age: 23 });
+// bc.exportBlocks("data");
+// console.log(bc.chain);
