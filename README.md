@@ -13,7 +13,7 @@ const blockchain = require("leo-blockchain");
 
 Following are the functionality provided by the module.
 
-(1) Add a new Block to the chain
+<b>(1) Add a new Block to the chain</b>
 
 ```jsx
 blockchain.addBlock(data); // datatype of "data" ---> JSON
@@ -21,8 +21,8 @@ blockchain.addBlock(data); // datatype of "data" ---> JSON
 
 <br/>
 
-(2) Set difficulty in Proof of work algorithm while mining
-[!Warning] It leads to creating a new chain. Loss of data may occour.
+<b>(2) Set difficulty in Proof of work algorithm while mining</b>
+<br/>[!Warning] It leads to creating a new chain. Loss of data may occour.
 
 ```jsx
 blockchain.setDifficulty(difficulty); // difficulty belongs to range of 1 to 10
@@ -30,7 +30,7 @@ blockchain.setDifficulty(difficulty); // difficulty belongs to range of 1 to 10
 
 <br/>
 
-(3) Verify a random block with the given Id.
+<b>(3) Verify a random block with the given Id.</b>
 
 ```jsx
 blockchain.verifyBlock(blockId); // returns boolean
@@ -38,7 +38,7 @@ blockchain.verifyBlock(blockId); // returns boolean
 
 <br/>
 
-(4) Verify entire chain.
+<b>(4) Verify entire chain.</b>
 
 ```jsx
 blockchain.verifyChain(); // returns boolean
@@ -46,8 +46,8 @@ blockchain.verifyChain(); // returns boolean
 
 <br/>
 
-(5) Import Data.
-[!Warning] Import data only when the chain is empty or it wont accept forcing to reset.
+<b>(5) Import Data.</b>
+<br/>[!Warning] Import data only when the chain is empty or it wont accept forcing to reset.
 
 ```jsx
 blockchain.importBlocks(fileName); // fileName without extension.
@@ -55,8 +55,18 @@ blockchain.importBlocks(fileName); // fileName without extension.
 
 <br/>
 
-(6) Export Data.
+<b>(6) Export Data.</b>
 
 ```jsx
 blockchain.exportBlocks(fileName); // fileName without extension.
 ```
+
+<br/>
+
+<b>(7) Access chain</b>
+
+```jsx
+let block = blockchain.chain[blockId];
+```
+
+<i>This blockchain is not meant for professional use. There may be loophole. By no means I assure you that it will work like a charm. But I have tried my best to discover and fix all the loopholes</i>
