@@ -9,6 +9,7 @@
         "secure",
         "block",
         "leo",
+        "merkle-tree",
         "leo-blockchain"
     ],
     "author": "Malay Bhavsar <malaybhavsar.290@gmail.com>",
