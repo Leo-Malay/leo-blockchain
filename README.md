@@ -43,11 +43,5 @@ blockchain.exportBlocks("fileName.xyz");
 blockchain.importBlocks("fileName.xyz");
 ```
 
-<b>(1) Add a new Block to the chain</b>
-
-```jsx
-blockchain.addBlock(data); // datatype of "data" ---> JSON
-```
-
 <br/>
 <i>This blockchain is not meant for professional use. There may be loophole. By no means I assure you that it will work like a charm. But I have tried my best to discover and fix all the loopholes</i>
